@@ -1,6 +1,26 @@
 .header {
   max-width: calc(100% - (2 * 200px));
-  margin: 0 auto 40px;
-  border-bottom: 1px #545454 solid;
-  padding: 45px 0 40px;
+  margin: 0 auto 36px;
+  border-bottom: 1px solid #545454;
+  padding: 45px 0 41px;
+}
+
+@media screen and (max-width: 1279px) {
+  .header {
+    max-width: calc(100% - (2 * 120px));
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    max-width: calc(100% - (2 * 72px));
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    margin: 0 auto 38px;
+    max-width: 100%;
+    padding: 28px 0 31px;
+  }
 }
