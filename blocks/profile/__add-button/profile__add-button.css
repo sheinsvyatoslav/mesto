@@ -1,6 +1,7 @@
 .profile__add-button {
   transition: opacity 0.3s ease-in-out;
   border: 2px solid #fff;
+  border-radius: 2px;
   padding: 12px 62px;
 }
 
