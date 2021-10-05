@@ -1,8 +1,9 @@
 .profile__add-button {
+  background: transparent;
   transition: opacity 0.3s ease-in-out;
   border: 2px solid #fff;
   border-radius: 2px;
-  padding: 12px 62px;
+  padding: 10px 62px;
 }
 
 .profile__add-button:hover {
@@ -12,7 +13,6 @@
 
 @media screen and (max-width: 767px) {
   .profile__add-button {
-    max-width: 17px;
-    padding: 15px 130px;
+    padding: 13px 130px;
   }
 }
