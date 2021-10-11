@@ -22,87 +22,81 @@
           <div class="profile__info">
             <div class="profile__title">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" type="button">
-                <img class="profile__edit-button-icon" src="./images/profile/edit_button_icon.svg" alt="Изменить">
-              </button>
+              <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
             </div>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button" type="button">
-          <img class="profile__add-button-icon" src="./images/profile/add_button_icon.svg" alt="Добавить">
-        </button>
+        <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
 
       <section class="cards">
-        <figure class="card">
+        <article class="card">
           <img class="card__image" src="./images/cards/kirill-pershin-1088404-unsplash.png" alt="Древнее здание">
           <div class="card__caption">
-            <p class="card__name">Карачаевск</p>
-            <img class="card__like-button" src="./images/cards/heart_logo.svg" alt="Мне нравится">
+            <h2 class="card__name">Карачаевск</h2>
+            <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
-        </figure>
-        <figure class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/cards/kirill-pershin-1404681-unsplash.png" alt="Древнее здание">
           <div class="card__caption">
-            <p class="card__name">Гора Эльбрус</p>
-            <img class="card__like-button" src="./images/cards/heart_logo.svg" alt="Мне нравится">
+            <h2 class="card__name">Гора Эльбрус</h2>
+            <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
-        </figure>
-        <figure class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/cards/kirill-pershin-1556355-unsplash.png" alt="Древнее здание">
           <div class="card__caption">
-            <p class="card__name">Домбай</p>
-            <img class="card__like-button" src="./images/cards/heart_logo.svg" alt="Мне нравится">
+            <h2 class="card__name">Домбай</h2>
+            <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
-        </figure>
-        <figure class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/cards/kirill-pershin-1404681-unsplash.png" alt="Древнее здание">
           <div class="card__caption">
-            <p class="card__name">Гора Эльбрус</p>
-            <img class="card__like-button" src="./images/cards/heart_logo.svg" alt="Мне нравится">
+            <h2 class="card__name">Гора Эльбрус</h2>
+            <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
-        </figure>
-        <figure class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/cards/kirill-pershin-1556355-unsplash.png" alt="Древнее здание">
           <div class="card__caption">
-            <p class="card__name">Домбай</p>
-            <img class="card__like-button" src="./images/cards/heart_logo.svg" alt="Мне нравится">
+            <h2 class="card__name">Домбай</h2>
+            <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
-        </figure>
-        <figure class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/cards/kirill-pershin-1088404-unsplash.png" alt="Древнее здание">
           <div class="card__caption">
-            <p class="card__name">Карачаево-Черкесия</p>
-            <img class="card__like-button" src="./images/cards/heart_logo.svg" alt="Мне нравится">
+            <h2 class="card__name">Карачаево-Черкесия</h2>
+            <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
-        </figure>
+        </article>
       </section>
     </main>
-
-    <section class="popup">
-      <div class="popup__container">
-        <button class="popup__close-button" type="button">
-          <img class="popup__close-button-icon" src="./images/popup/close_button_icon.svg" alt="Закрыть">
-        </button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form">
-          <fieldset class="form__field">
-            <input class="form__item" type="text" id="name" name="name">
-            <input class="form__item" type="text" id="about" name="about">
-            <input class="form__submit" type="submit" value="Сохранить">
-          </fieldset>
-        </form>
-      </div>
-    </section>
 
     <footer class="footer">
       <p class="footer__copyright">&COPY; 2021 Mesto Russia</p>
     </footer>
 
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="form" name="form">
+          <fieldset class="form__field">
+            <input class="form__item form__item_type_name" type="text" id="name" name="name">
+            <input class="form__item form__item_type_about" type="text" id="about" name="about">
+            <button class="form__submit" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
   </div>
 
-  <script src="script.js"></script>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>
