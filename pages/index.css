@@ -20,23 +20,36 @@
 
 @import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);
+@import url(../blocks/card/_deleted/card_deleted.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__caption/card__caption.css);
 @import url(../blocks/card/__name/card__name.css);
 @import url(../blocks/card/__like-button/card__like-button.css);
+@import url(../blocks/card/__like-button/_active/card__like-button_active.css);
+@import url(../blocks/card/__delete-button/card__delete-button.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
-@import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/popup/__close-button/popup__close-button.css);
-@import url(../blocks/popup/__container/popup__container.css);
-@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup-edit/popup-edit.css);
+@import url(../blocks/popup-edit/__container/popup-edit__container.css);
+@import url(../blocks/popup-edit/__title/popup-edit__title.css);
+@import url(../blocks/popup-edit/__close-button/popup-edit__close-button.css);
+@import url(../blocks/popup-edit/_opened/popup-edit_opened.css);
+
+@import url(../blocks/popup-new/popup-new.css);
+@import url(../blocks/popup-new/_opened/popup-new_opened.css);
+@import url(../blocks/popup-new/__container/popup-new__container.css);
+@import url(../blocks/popup-new/__title/popup-new__title.css);
+@import url(../blocks/popup-new/__close-button/popup-new__close-button.css);
 
 @import url(../blocks/form/form.css);
+@import url(../blocks/form/_type/form_type_edit.css);
+@import url(../blocks/form/_type/form_type_add.css);
 @import url(../blocks/form/__field/form__field.css);
 @import url(../blocks/form/__item/form__item.css);
 @import url(../blocks/form/__item/_type/form__item_type_about.css);
 @import url(../blocks/form/__item/_type/form__item_type_name.css);
+@import url(../blocks/form/__item/_type/form__item_type_place.css);
+@import url(../blocks/form/__item/_type/form__item_type_image.css);
 @import url(../blocks/form/__submit/form__submit.css);

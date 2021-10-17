@@ -32,42 +32,48 @@
 
       <section class="cards">
         <article class="card">
-          <img class="card__image" src="./images/cards/kirill-pershin-1088404-unsplash.png" alt="Древнее здание">
+          <img class="card__image" src="./images/cards/kirill-pershin-1088404-unsplash.png" alt="Фото карточки">
+          <button class="card__delete-button" type="button" aria-label="Удалить"></button>
           <div class="card__caption">
             <h2 class="card__name">Карачаевск</h2>
             <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="card">
-          <img class="card__image" src="./images/cards/kirill-pershin-1404681-unsplash.png" alt="Древнее здание">
+          <img class="card__image" src="./images/cards/kirill-pershin-1404681-unsplash.png" alt="Фото карточки">
+          <button class="card__delete-button" type="button" aria-label="Удалить"></button>
           <div class="card__caption">
             <h2 class="card__name">Гора Эльбрус</h2>
             <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="card">
-          <img class="card__image" src="./images/cards/kirill-pershin-1556355-unsplash.png" alt="Древнее здание">
+          <img class="card__image" src="./images/cards/kirill-pershin-1556355-unsplash.png" alt="Фото карточки">
+          <button class="card__delete-button" type="button" aria-label="Удалить"></button>
           <div class="card__caption">
             <h2 class="card__name">Домбай</h2>
             <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="card">
-          <img class="card__image" src="./images/cards/kirill-pershin-1404681-unsplash.png" alt="Древнее здание">
+          <img class="card__image" src="./images/cards/kirill-pershin-1404681-unsplash.png" alt="Фото карточки">
+          <button class="card__delete-button" type="button" aria-label="Удалить"></button>
           <div class="card__caption">
             <h2 class="card__name">Гора Эльбрус</h2>
             <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="card">
-          <img class="card__image" src="./images/cards/kirill-pershin-1556355-unsplash.png" alt="Древнее здание">
+          <img class="card__image" src="./images/cards/kirill-pershin-1556355-unsplash.png" alt="Фото карточки">
+          <button class="card__delete-button" type="button" aria-label="Удалить"></button>
           <div class="card__caption">
             <h2 class="card__name">Домбай</h2>
             <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="card">
-          <img class="card__image" src="./images/cards/kirill-pershin-1088404-unsplash.png" alt="Древнее здание">
+          <img class="card__image" src="./images/cards/kirill-pershin-1088404-unsplash.png" alt="Фото карточки">
+          <button class="card__delete-button" type="button" aria-label="Удалить"></button>
           <div class="card__caption">
             <h2 class="card__name">Карачаево-Черкесия</h2>
             <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
@@ -80,11 +86,11 @@
       <p class="footer__copyright">&COPY; 2021 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
-      <div class="popup__container">
-        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form" name="form">
+    <div class="popup-edit">
+      <div class="popup-edit__container">
+        <button class="popup-edit__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup-edit__title">Редактировать профиль</h2>
+        <form class="form form_type_edit" name="form">
           <fieldset class="form__field">
             <input class="form__item form__item_type_name" type="text" id="name" name="name" placeholder="Введите имя" required>
             <input class="form__item form__item_type_about" type="text" id="about" name="about" placeholder="Расскажите о себе" required>
@@ -93,6 +99,39 @@
         </form>
       </div>
     </div>
+
+    <div class="popup-new">
+      <div class="popup-new__container">
+        <button class="popup-new__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup-new__title">Новое место</h2>
+        <form class="form form_type_add" name="form">
+          <fieldset class="form__field">
+            <input class="form__item form__item_type_place" type="text" id="place" name="place" placeholder="Название" required>
+            <input class="form__item form__item_type_image" type="text" id="image" name="image" placeholder="Ссылка на картинку" required>
+            <button class="form__submit" type="submit">Создать</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <!-- <div class="popup-image">
+      <div class="popup-image__container">
+        <button class="popup-image__close-button" type="button" aria-label="Закрыть"></button>
+        <img class="popup-image__container" src="" alt="Фото карточки">
+        <p class="popup-image__name"></p>
+      </div>
+    </div> -->
+
+    <template id="card-template">
+      <article class="card">
+        <img class="card__image" src=" " alt="Фото карточки">
+        <button class="card__delete-button" type="button" aria-label="Удалить"></button>
+        <div class="card__caption">
+          <h2 class="card__name"></h2>
+          <button class="card__like-button" type="button" aria-label="Мне нравится"></button>
+        </div>
+      </article>
+    </template>
 
   </div>
 
