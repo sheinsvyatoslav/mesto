@@ -3,8 +3,7 @@ let editButton = document.querySelector('.profile__edit-button');
 let closeButtonEdit = document.querySelector('.popup-edit__close-button');
 let closeButtonNew = document.querySelector('.popup-new__close-button');
 let addButton = document.querySelector('.profile__add-button');
-let likeButton = document.querySelectorAll('.card__like-button');
-const likeButtonArray = Array.from(likeButton);
+let likeButton = likeCard();
 let deleteButton = deleteCard();
 
 let popupEdit = document.querySelector('.popup-edit');
@@ -126,6 +125,7 @@ function addCard(nameValue, imageValue) {
 
   cards.prepend(cardElement);
   deleteCard();
+  likeCard();
   console.log(cards);
 }
 
@@ -155,6 +155,16 @@ function deleteCard() {
   });
 }
 
+//лайк карточкам
+function likeCard() {
+  let likeButton = document.querySelectorAll('.card__like-button');
+  likeButton.forEach(function(el, i) {
+    el.addEventListener("click", function(evt) {
+      evt.target.classList.toggle('card__like-button_active');
+    });
+  });
+}
+
 //вызываем функции согласно событиям
 editButton.addEventListener('click', openPopupEdit);
 closeButtonEdit.addEventListener('click', closePopupEdit);
@@ -163,27 +173,3 @@ formEdit.addEventListener('submit', formSubmitHandlerEdit);
 addButton.addEventListener('click', openPopupNew);
 closeButtonNew.addEventListener('click', closePopupNew);
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
-
-//ставим лайки c помощью цикла for
-/*
-for (let i = 0; i < likeButtonArray.length; i++) {
-    likeButtonArray[i].addEventListener("click", function(evt) {
-      evt.target.classList.toggle('card__like-button_active');
-        });
-    }
-*/
-
-likeButtonArray.forEach(function(el) {
-  el.addEventListener("click", function(evt) {
-    evt.target.classList.toggle('card__like-button_active');
-  });
-})
-
-//удаление карточки
-
-
-
-
-
-
-
