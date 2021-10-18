@@ -3,8 +3,8 @@ let editButton = document.querySelector('.profile__edit-button');
 let closeButtonEdit = document.querySelector('.popup-edit__close-button');
 let closeButtonNew = document.querySelector('.popup-new__close-button');
 let addButton = document.querySelector('.profile__add-button');
-let likeButton = likeCard();
-let deleteButton = deleteCard();
+let deleteButton = document.querySelectorAll('.card__delete-button');
+let likeButton = document.querySelectorAll('.card__like-button');
 
 let popupEdit = document.querySelector('.popup-edit');
 let popupNew = document.querySelector('.popup-new');
@@ -115,7 +115,7 @@ function closePopupNew() {
   popupNew.classList.remove('popup-new_opened');
 }
 
-// добавление карточки
+// добавление карточки и присваивание ей функций удаления и лайка
 function addCard(nameValue, imageValue) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -123,10 +123,17 @@ function addCard(nameValue, imageValue) {
   cardElement.querySelector('.card__name').textContent = nameValue;
   cardElement.querySelector('.card__image').src = imageValue;
 
+  cardElement.querySelector('.card__like-button').addEventListener('click', function (evt) { 
+    evt.target.classList.toggle('card__like-button_active');
+    });
+
+  cardElement.querySelector('.card__delete-button').addEventListener('click', function (evt) { 
+    const cardItem = evt.target.closest('.card');
+    cardItem.remove();
+    });
+   
+    
   cards.prepend(cardElement);
-  deleteCard();
-  likeCard();
-  console.log(cards);
 }
 
 //функция сохранения данных формы изменения
@@ -144,26 +151,21 @@ function formSubmitHandlerAdd(evt) {
   closePopupNew();
 }
 
-//функция удаления карточки
-function deleteCard() {
-  let deleteButton = document.querySelectorAll('.card__delete-button');
-  deleteButton.forEach(function(el, i) {
-    el.addEventListener("click", function() {
-      const cardItem = deleteButton[i].closest('.card');
+//удаление первоначальных карточек
+  deleteButton.forEach(function(el) {
+    el.addEventListener("click", function(evt) {
+      const cardItem = evt.target.closest('.card');
       cardItem.remove();
     });
   });
-}
 
-//лайк карточкам
-function likeCard() {
-  let likeButton = document.querySelectorAll('.card__like-button');
-  likeButton.forEach(function(el, i) {
-    el.addEventListener("click", function(evt) {
-      evt.target.classList.toggle('card__like-button_active');
-    });
+
+//лайк первоначальным карточкам
+likeButton.forEach(function(el) {
+  el.addEventListener("click", function(evt) {
+    evt.target.classList.toggle('card__like-button_active');
   });
-}
+});
 
 //вызываем функции согласно событиям
 editButton.addEventListener('click', openPopupEdit);
@@ -173,3 +175,5 @@ formEdit.addEventListener('submit', formSubmitHandlerEdit);
 addButton.addEventListener('click', openPopupNew);
 closeButtonNew.addEventListener('click', closePopupNew);
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
+
+
