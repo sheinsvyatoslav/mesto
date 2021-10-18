@@ -1,14 +1,11 @@
-.popup-edit__container {
+.popup__container_type_add {
   background-color: white;
   width: 430px;
-  margin: auto;
   border-radius: 10px;
-  align-self: center;
-  position: relative;
 }
 
 @media screen and (max-width: 767px) {
-  .popup-edit__container {
+  .popup__container_type_add {
     width: 282px;
   }
 }
