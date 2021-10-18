@@ -1,4 +1,4 @@
-.popup-new__close-button {
+.popup-image__close-button {
   background: transparent;
   border: 0;
   padding: 0;
@@ -14,13 +14,13 @@
   background-size: contain;
 }
 
-.popup-new__close-button:hover {
+.popup-image__close-button:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {
-  .popup-new__close-button {
+  .popup-image__close-button {
     width: 20px;
     height: 20px;
     top: -36px;

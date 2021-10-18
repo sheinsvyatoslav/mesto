@@ -1,13 +1,15 @@
 //поиск необходимых элементов
 let editButton = document.querySelector('.profile__edit-button');
 let closeButtonEdit = document.querySelector('.popup-edit__close-button');
-let closeButtonNew = document.querySelector('.popup-new__close-button');
+let closeButtonAdd = document.querySelector('.popup-add__close-button');
+let closeButtonImage = document.querySelector('.popup-image__close-button');
 let addButton = document.querySelector('.profile__add-button');
 let deleteButton = document.querySelectorAll('.card__delete-button');
 let likeButton = document.querySelectorAll('.card__like-button');
 
 let popupEdit = document.querySelector('.popup-edit');
-let popupNew = document.querySelector('.popup-new');
+let popupAdd = document.querySelector('.popup-add');
+let popupImage = document.querySelector('.popup-image');
 let formEdit = document.querySelector('.form_type_edit');
 let formAdd = document.querySelector('.form_type_add');
 
@@ -19,12 +21,9 @@ let imageInput = document.querySelector('.form__item_type_image');
 let profileName = document.querySelector('.profile__name');
 let profileSubtitle = document.querySelector('.profile__subtitle');
 let cardName = document.querySelectorAll('.card__name');
-const cardNameArray = Array.from(cardName);
 let cardImage = document.querySelectorAll('.card__image');
-const cardImageArray = Array.from(cardImage);
 
 let cards = document.querySelector('.cards');
-
 
 //массив карточек
 const initialCards = [
@@ -66,8 +65,8 @@ for (let i = 0; i < initialCards.length; i++) {
     initialCardsImageOnly[i] = initialCards[i].link;   
   }; */
 
-const initialCardsNameOnly = initialCards.map(el => el.name);
-const initialCardsImageOnly = initialCards.map(el => el.link); 
+const initialCardsName = initialCards.map(el => el.name);
+const initialCardsImage = initialCards.map(el => el.link); 
 
 //присваиваем имена и ссылки из полученных массивов соответстующим элементам разметки
 
@@ -81,16 +80,12 @@ for (let i = 0; i < cardImageArray.length; i++) {
 */
 
  cardName.forEach(function(el, i){
-  el.textContent = initialCardsNameOnly[i];
+  el.textContent = initialCardsName[i];
 });
 
 cardImage.forEach(function(el, i){
-  el.src = initialCardsImageOnly[i];
+  el.src = initialCardsImage[i];
 }); 
-
-//cоздаем массивы названий карточек и ссылок на изображения
-const cardNameText = cardNameArray.map(el => el.textContent);
-const cardImageLink = cardImageArray.map(el => el.src);
 
 //функция открытия попапа изменения
 function openPopupEdit() {
@@ -107,12 +102,20 @@ function closePopupEdit() {
 }
 
 //открытие и закрытие попапа создания карточки
-function openPopupNew() {
-  popupNew.classList.add('popup-new_opened');
+function openPopupAdd() {
+  popupAdd.classList.add('popup-add_opened');
 }
 
-function closePopupNew() {
-  popupNew.classList.remove('popup-new_opened');
+function closePopupAdd() {
+  popupAdd.classList.remove('popup-add_opened');
+}
+
+function openPopupImage() {
+  
+}
+
+function closePopupImage() {
+  popupImage.classList.remove('popup-image_opened');
 }
 
 // добавление карточки и присваивание ей функций удаления и лайка
@@ -125,14 +128,19 @@ function addCard(nameValue, imageValue) {
 
   cardElement.querySelector('.card__like-button').addEventListener('click', function (evt) { 
     evt.target.classList.toggle('card__like-button_active');
-    });
+  });
 
   cardElement.querySelector('.card__delete-button').addEventListener('click', function (evt) { 
     const cardItem = evt.target.closest('.card');
     cardItem.remove();
-    });
+  });
+  
+  cardElement.querySelector('.card__image').addEventListener('click', function (evt) { 
+    popupImage.classList.add('popup-image_opened');
+    popupImage.querySelector('.popup-image__name').textContent = nameValue;
+    popupImage.querySelector('.popup-image__picture').src = imageValue;
+  });
    
-    
   cards.prepend(cardElement);
 }
 
@@ -148,7 +156,7 @@ function formSubmitHandlerEdit(evt) {
 function formSubmitHandlerAdd(evt) {
   evt.preventDefault();
   addCard(placeInput.value, imageInput.value)
-  closePopupNew();
+  closePopupAdd();
 }
 
 //удаление первоначальных карточек
@@ -172,8 +180,18 @@ editButton.addEventListener('click', openPopupEdit);
 closeButtonEdit.addEventListener('click', closePopupEdit);
 formEdit.addEventListener('submit', formSubmitHandlerEdit);
 
-addButton.addEventListener('click', openPopupNew);
-closeButtonNew.addEventListener('click', closePopupNew);
+addButton.addEventListener('click', openPopupAdd);
+closeButtonAdd.addEventListener('click', closePopupAdd);
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
+
+cardImage.forEach(function(el, i) {
+  el.addEventListener("click", function () {
+    popupImage.classList.add('popup-image_opened');
+    popupImage.querySelector('.popup-image__name').textContent = cardName[i].textContent;
+    popupImage.querySelector('.popup-image__picture').src = cardImage[i].src;
+  }); 
+});
+
+closeButtonImage.addEventListener('click', closePopupImage);
 
 

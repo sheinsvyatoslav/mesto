@@ -1,4 +1,4 @@
-.popup-new__container {
+.popup-add__container {
   background-color: white;
   width: 430px;
   margin: auto;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .popup-new__container {
+  .popup-add__container {
     width: 282px;
   }
 }
