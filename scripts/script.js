@@ -53,13 +53,12 @@ const initialCards = [
   }
 ]; 
 
-for (let i = 5; i >= 0; i--) {
-  createCard(initialCards[i].name, initialCards[i].link);
-  addCard(createCard(initialCards[i].name, initialCards[i].link));
-}
+initialCards.reverse().forEach(function(el) {
+  addCard(createCard(el.name, el.link));
+});
 
 //присваивание элементам формы текста со страницы
-function PopupPutInfo() {
+function popupPutInfo() {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileSubtitle.textContent;
 }
@@ -117,7 +116,6 @@ function formSubmitHandlerEdit(evt) {
 //функция сохранения данных формы создания карточки
 function formSubmitHandlerAdd(evt) {
   evt.preventDefault();
-  createCard(placeInput.value, imageInput.value);
   addCard(createCard(placeInput.value, imageInput.value));
   placeInput.value = '';
   imageInput.value = '';
@@ -127,7 +125,7 @@ function formSubmitHandlerAdd(evt) {
 //вызываем функции согласно событиям
 editButton.addEventListener('click', () => {
   openPopup(popupEdit);
-  PopupPutInfo();
+  popupPutInfo();
 });
 closeButtonEdit.addEventListener('click', () => closePopup(popupEdit));
 formEdit.addEventListener('submit', formSubmitHandlerEdit);
