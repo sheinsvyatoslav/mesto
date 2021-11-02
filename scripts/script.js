@@ -25,34 +25,6 @@ const cardImage = document.querySelectorAll('.card__image');
 
 const cards = document.querySelector('.cards');
 
-//массив карточек
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
-
 initialCards.reverse().forEach(function(el) {
   addCard(createCard(el.name, el.link));
 });
@@ -93,10 +65,22 @@ function closePopupKeyboard(evt) {
 function closePopupOverlay(evt) {
   const openedPopup = document.querySelector('.popup_opened')
   if (evt.target.classList.contains('popup')) {
-    if (evt.which === 1) {
-      closePopup(openedPopup);
-    }
+    closePopup(openedPopup);
   } 
+}
+
+//очистка ошибок перед открытием попапа
+function preparePopup(popup) {
+  const inputList = Array.from(popup.querySelectorAll('.form__input'));
+  inputList.forEach((inputElement) => {
+    const errorElement = popup.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('form__input_type_error');
+    errorElement.classList.remove('form__input-error_active');
+    errorElement.textContent = '';
+  });
+  const buttonElement = popup.querySelector('.form__button');
+  buttonElement.classList.remove('form__button_inactive')
+  buttonElement.removeAttribute('disabled');
 }
 
 //лайк карточки
@@ -152,6 +136,7 @@ function formSubmitHandlerAdd(evt) {
 
 //вызываем функции согласно событиям
 editButton.addEventListener('click', () => {
+  preparePopup(popupEdit);
   openPopup(popupEdit);
   popupPutInfo();
 });
@@ -171,8 +156,5 @@ closeButtonImage.addEventListener('click', () => closePopup(popupImage));
 
 document.addEventListener('keydown', closePopupKeyboard);
 document.addEventListener('mousedown', closePopupOverlay);
-
-
-
 
 

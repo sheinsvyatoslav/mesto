@@ -26,11 +26,29 @@ const hideInputError = (formElement, inputElement, obj) => {
 
 //проверка на валидность
 const isValid = (formElement, inputElement, obj) => {
-  hideInputError(formElement, inputElement, obj);
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, obj)
   }
   else hideInputError(formElement, inputElement, obj);
+}
+
+//поиск невалидного поля ввода
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}
+
+//отключение кнопки
+const toggleButtonState = (inputList, buttonElement, obj) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(`${obj.inactiveButtonClass}`);
+    buttonElement.setAttribute('disabled', true);
+  }
+  else {
+    buttonElement.classList.remove(`${obj.inactiveButtonClass}`)
+    buttonElement.removeAttribute('disabled');
+  } 
 }
 
 //проверка на валидность элементов формы
@@ -59,25 +77,6 @@ const enableValidation = (obj) => {
     });
   });
 };
-
-//поиск невалидного поля ввода
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-}
-
-//отключение кнопки
-const toggleButtonState = (inputList, buttonElement, obj) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(`${obj.inactiveButtonClass}`);
-    buttonElement.setAttribute('disabled', true);
-  }
-  else {
-    buttonElement.classList.remove(`${obj.inactiveButtonClass}`)
-    buttonElement.removeAttribute('disabled');
-  } 
-}
 
 enableValidation(mestoSettings);
 
