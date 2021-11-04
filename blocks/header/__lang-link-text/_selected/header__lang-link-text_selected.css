@@ -1,0 +1,4 @@
+.header__lang-link-text_selected {
+  text-decoration: underline;
+  pointer-events: none;
+} 
