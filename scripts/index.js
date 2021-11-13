@@ -1,15 +1,14 @@
+import {Card} from './Cards.js'
+import {initialCards} from './initial-cards.js'
+import {FormValidator} from './FormValidator.js'
 //поиск необходимых элементов
 const editButton = document.querySelector('.profile__edit-button');
 const closeButtonEdit = document.querySelector('.popup__close-button_type_edit');
 const closeButtonAdd = document.querySelector('.popup__close-button_type_add');
-const closeButtonImage = document.querySelector('.popup__close-button_type_image');
 const addButton = document.querySelector('.profile__add-button');
-const deleteButton = document.querySelectorAll('.card__delete-button');
-const likeButton = document.querySelectorAll('.card__like-button');
 
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
-const popupImage = document.querySelector('.popup_type_image');
 const formEdit = document.querySelector('.form_type_edit');
 const formAdd = document.querySelector('.form_type_add');
 
@@ -20,13 +19,13 @@ const imageInput = document.querySelector('.form__input_type_image');
 
 const profileName = document.querySelector('.profile__name');
 const profileSubtitle = document.querySelector('.profile__subtitle');
-const cardName = document.querySelectorAll('.card__name');
-const cardImage = document.querySelectorAll('.card__image');
 
 const cards = document.querySelector('.cards');
 
-initialCards.reverse().forEach(function(el) {
-  addCard(createCard(el.name, el.link));
+//добавление начальных карточек
+initialCards.reverse().forEach((el) => {
+  const card = new Card(el.name, el.link, '#card-template');
+  cards.prepend(card.generateCard());
 });
 
 //присваивание элементам формы текста со страницы
@@ -42,15 +41,6 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-}
-
-//открытие изображения
-function openImage(cardElement, nameValue, imageValue) {
-  cardElement.querySelector('.card__image').addEventListener('click', function (evt) { 
-    openPopup(popupImage);
-    popupImage.querySelector('.popup__name').textContent = nameValue;
-    popupImage.querySelector('.popup__picture').src = imageValue;
-  });
 }
 
 //закрытие попапа клавишей Escape
@@ -83,40 +73,6 @@ function preparePopup(popup) {
   buttonElement.removeAttribute('disabled');
 }
 
-//лайк карточки
-function likeCard(cardElement) {
-  cardElement.querySelector('.card__like-button').addEventListener('click', function (evt) { 
-    evt.target.classList.toggle('card__like-button_active');
-  });
-}
-
-//удаление карточки
-function deleteCard(cardElement) {
-  cardElement.querySelector('.card__delete-button').addEventListener('click', function (evt) { 
-    const cardItem = evt.target.closest('.card');
-    cardItem.remove();
-  });
-}
-
-// создание карточки
-function createCard(nameValue, imageValue) {
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  cardElement.querySelector('.card__name').textContent = nameValue;
-  cardElement.querySelector('.card__image').src = imageValue;
-
-  likeCard(cardElement);
-  deleteCard(cardElement);
-  openImage(cardElement, nameValue, imageValue);
-
-  return cardElement;
-}
-
-//добавление карточки
-function addCard(card) {
-  cards.prepend(card);
-}
-
 //функция сохранения данных формы изменения
 function formSubmitHandlerEdit(evt) {
   evt.preventDefault();
@@ -128,7 +84,8 @@ function formSubmitHandlerEdit(evt) {
 //функция сохранения данных формы создания карточки
 function formSubmitHandlerAdd(evt) {
   evt.preventDefault();
-  addCard(createCard(placeInput.value, imageInput.value));
+  const card = new Card(placeInput.value, imageInput.value, '#card-template');;
+  cards.prepend(card.generateCard());
   placeInput.value = '';
   imageInput.value = '';
   closePopup(popupAdd);
@@ -152,9 +109,25 @@ addButton.addEventListener('click', () => {
 closeButtonAdd.addEventListener('click', () => closePopup(popupAdd));
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
 
-closeButtonImage.addEventListener('click', () => closePopup(popupImage));
-
 document.addEventListener('keydown', closePopupKeyboard);
 document.addEventListener('mousedown', closePopupOverlay);
 
+//валидация форм
+const mestoSettings = {
+  fieldSelector: 'form__set',
+  inputSelector: 'form__input',
+  submitButtonSelector: 'form__button',
+  inactiveButtonClass: 'form__button_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClassActive: 'form__input-error_active'
+}
+
+const formList = Array.from(document.querySelectorAll('.form'));
+formList.forEach((formElement) => {
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+  });
+  const formValidator = new FormValidator(mestoSettings, formElement);
+  formValidator.enableValidation();
+});
 
