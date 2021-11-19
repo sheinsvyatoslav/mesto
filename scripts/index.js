@@ -28,7 +28,7 @@ initialCards.reverse().forEach(function(el) {
 
 //функция создания карточки 
 function createCard(name, link) {  
-  const card = new Card(name, link, '#card-template');
+  const card = new Card(name, link, '#card-template', openPopup);
   return card.generateCard(); 
 } 
 
@@ -44,7 +44,7 @@ function popupPutInfo() {
 }
 
 //открытие и закрытие попапа
-export function openPopup(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupKeyboard);
   formEditValidator.resetValidation();
@@ -105,17 +105,10 @@ popups.forEach((popup) => {
   })
 })
 
-const formList = Array.from(document.querySelectorAll('.form'));
-formList.forEach((formElement) => {
-  formElement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-  });
-});
-
 //валидация форм
 const formAddValidator = new FormValidator(mestoSettings, formAdd);
 formAddValidator.enableValidation(); 
 const formEditValidator = new FormValidator(mestoSettings, formEdit);
 formEditValidator.enableValidation(); 
-console.log(formEditValidator);
+
 

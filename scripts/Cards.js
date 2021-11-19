@@ -1,9 +1,9 @@
-import { openPopup } from "./index.js";
 export class Card {
-  constructor(name, link, cardSelector) {
+  constructor(name, link, cardSelector, openPopup) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._openPopup = openPopup;
   }
 
   //получение шаблона для карточки
@@ -14,7 +14,7 @@ export class Card {
 
   _openImage() {
     const popupImage = document.querySelector('.popup_type_image');
-    openPopup(popupImage);
+    this._openPopup(popupImage);
     popupImage.querySelector('.popup__name').textContent = this._name;
     popupImage.querySelector('.popup__picture').src = this._link;
     popupImage.querySelector('.popup__picture').alt = this._name;
