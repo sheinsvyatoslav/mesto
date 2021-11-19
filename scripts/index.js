@@ -1,12 +1,11 @@
 import {Card} from './Cards.js'
-import {initialCards} from './initial-cards.js'
+import {initialCards, mestoSettings} from './utils.js'
 import {FormValidator} from './FormValidator.js'
 //поиск необходимых элементов
 const editButton = document.querySelector('.profile__edit-button');
-const closeButtonEdit = document.querySelector('.popup__close-button_type_edit');
-const closeButtonAdd = document.querySelector('.popup__close-button_type_add');
 const addButton = document.querySelector('.profile__add-button');
 
+const popups = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const formEdit = document.querySelector('.form_type_edit');
@@ -22,11 +21,21 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 
 const cards = document.querySelector('.cards');
 
-//добавление начальных карточек
-initialCards.reverse().forEach((el) => {
-  const card = new Card(el.name, el.link, '#card-template');
-  cards.prepend(card.generateCard());
-});
+//добавляем первоначальные карточки
+initialCards.reverse().forEach(function(el) { 
+  addCard(createCard(el.name, el.link));
+}); 
+
+//функция создания карточки 
+function createCard(name, link) {  
+  const card = new Card(name, link, '#card-template');
+  return card.generateCard(); 
+} 
+
+//функция добавления карточки 
+function addCard(card) { 
+  cards.prepend(card); 
+}
 
 //присваивание элементам формы текста со страницы
 function popupPutInfo() {
@@ -35,45 +44,27 @@ function popupPutInfo() {
 }
 
 //открытие и закрытие попапа
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupKeyboard);
+  formEditValidator.resetValidation();
+  formAddValidator.resetValidation();
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupKeyboard);
 }
 
 //закрытие попапа клавишей Escape
 function closePopupKeyboard(evt) {
-  const openedPopup = document.querySelector('.popup_opened')
   if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup);
   }
 }
 
-//закрытие попапа на оверлей
-function closePopupOverlay(evt) {
-  const openedPopup = document.querySelector('.popup_opened')
-  if (evt.target.classList.contains('popup')) {
-    closePopup(openedPopup);
-  } 
-}
-
-//очистка ошибок перед открытием попапа
-function preparePopup(popup) {
-  const inputList = Array.from(popup.querySelectorAll('.form__input'));
-  inputList.forEach((inputElement) => {
-    const errorElement = popup.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');
-    errorElement.classList.remove('form__input-error_active');
-    errorElement.textContent = '';
-  });
-  const buttonElement = popup.querySelector('.form__button');
-  buttonElement.classList.remove('form__button_inactive')
-  buttonElement.removeAttribute('disabled');
-}
-
-//функция сохранения данных формы изменения
+//функция сохранения sданных формы изменения
 function formSubmitHandlerEdit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -84,8 +75,7 @@ function formSubmitHandlerEdit(evt) {
 //функция сохранения данных формы создания карточки
 function formSubmitHandlerAdd(evt) {
   evt.preventDefault();
-  const card = new Card(placeInput.value, imageInput.value, '#card-template');;
-  cards.prepend(card.generateCard());
+  addCard(createCard(placeInput.value, imageInput.value));
   placeInput.value = '';
   imageInput.value = '';
   closePopup(popupAdd);
@@ -93,41 +83,39 @@ function formSubmitHandlerAdd(evt) {
 
 //вызываем функции согласно событиям
 editButton.addEventListener('click', () => {
-  preparePopup(popupEdit);
-  openPopup(popupEdit);
   popupPutInfo();
+  openPopup(popupEdit);
 });
-closeButtonEdit.addEventListener('click', () => closePopup(popupEdit));
 formEdit.addEventListener('submit', formSubmitHandlerEdit);
 
 addButton.addEventListener('click', () => {
-  const submitButton = formAdd.querySelector('.form__button')
-  submitButton.classList.add('form__button_inactive');
-  submitButton.setAttribute('disabled', true);
   openPopup(popupAdd);
 });
-closeButtonAdd.addEventListener('click', () => closePopup(popupAdd));
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
 
-document.addEventListener('keydown', closePopupKeyboard);
-document.addEventListener('mousedown', closePopupOverlay);
-
-//валидация форм
-const mestoSettings = {
-  fieldSelector: 'form__set',
-  inputSelector: 'form__input',
-  submitButtonSelector: 'form__button',
-  inactiveButtonClass: 'form__button_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClassActive: 'form__input-error_active'
-}
+//закрытие попапов на крестик и оверлей
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
+})
 
 const formList = Array.from(document.querySelectorAll('.form'));
 formList.forEach((formElement) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   });
-  const formValidator = new FormValidator(mestoSettings, formElement);
-  formValidator.enableValidation();
 });
+
+//валидация форм
+const formAddValidator = new FormValidator(mestoSettings, formAdd);
+formAddValidator.enableValidation(); 
+const formEditValidator = new FormValidator(mestoSettings, formEdit);
+formEditValidator.enableValidation(); 
+console.log(formEditValidator);
 

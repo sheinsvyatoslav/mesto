@@ -1,5 +1,4 @@
-const closeButtonImage = document.querySelector('.popup__close-button_type_image');
-const popupImage = document.querySelector('.popup_type_image');
+import { openPopup } from "./index.js";
 export class Card {
   constructor(name, link, cardSelector) {
     this._name = name;
@@ -14,13 +13,11 @@ export class Card {
   }
 
   _openImage() {
-    popupImage.classList.add('popup_opened');
+    const popupImage = document.querySelector('.popup_type_image');
+    openPopup(popupImage);
     popupImage.querySelector('.popup__name').textContent = this._name;
     popupImage.querySelector('.popup__picture').src = this._link;
-  }
-
-  _closeImage(){
-    popupImage.classList.remove('popup_opened');
+    popupImage.querySelector('.popup__picture').alt = this._name;
   }
 
   _setEventListeners() {
@@ -39,11 +36,6 @@ export class Card {
     this._element.querySelector('.card__image').addEventListener('click', () => { 
       this._openImage();
     });
-
-    //закрытие изображения
-    closeButtonImage.addEventListener('click', () => {
-      this._closeImage();
-    });
   }
 
   //создание карточки
@@ -52,6 +44,7 @@ export class Card {
     this._setEventListeners();
     this._element.querySelector('.card__name').textContent = this._name;
     this._element.querySelector('.card__image').src = this._link;
+    this._element.querySelector('.card__image').alt = this._name;
     return this._element;
   }
 }

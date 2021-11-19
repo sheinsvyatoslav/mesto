@@ -7,26 +7,29 @@ export class FormValidator {
     this._inputErrorClass = data.inputErrorClass;
     this._errorClassActive = data.errorClassActive;
     this._formElement = formElement;
-  }
-  _showInputError() {
-    const errorElement = this._fieldset.querySelector(`.${this._inputElement.id}-error`);
-    errorElement.classList.add(`${this._errorClassActive}`);
-    errorElement.textContent = this._inputElement.validationMessage;
-    this._inputElement.classList.add(`${this._inputErrorClass}`);
+    this._inputList = Array.from(this._formElement.querySelectorAll(`.${this._inputSelector}`));
+    this._buttonElement = this._formElement.querySelector(`.${this._submitButtonSelector}`);
   }
 
-  _hideInputError() {
-    const errorElement = this._fieldset.querySelector(`.${this._inputElement.id}-error`);
+  _showInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    errorElement.classList.add(`${this._errorClassActive}`);
+    errorElement.textContent = inputElement.validationMessage;
+    inputElement.classList.add(`${this._inputErrorClass}`);
+  }
+
+  _hideInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     errorElement.classList.remove(`${this._errorClassActive}`);
     errorElement.textContent = '';
-    this._inputElement.classList.remove(`${this._inputErrorClass}`);
+    inputElement.classList.remove(`${this._inputErrorClass}`);
   }
 
   _isValid(){
     if (!this._inputElement.validity.valid) {
-      this._showInputError();
+      this._showInputError(this._inputElement);
     }
-    else this._hideInputError();
+    else this._hideInputError(this._inputElement);
   }
 
   _hasInvalidInput() {
@@ -46,9 +49,14 @@ export class FormValidator {
     } 
   }
 
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+    this._hideInputError(inputElement);
+    });
+  }
+
   _setEventListeners() {
-    this._inputList = Array.from(this._fieldset.querySelectorAll(`.${this._inputSelector}`))
-    this._buttonElement = this._formElement.querySelector(`.${this._submitButtonSelector}`);
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._inputElement = inputElement;
@@ -59,11 +67,7 @@ export class FormValidator {
   }
 
   enableValidation(){
-    const fieldsetList = Array.from(this._formElement.querySelectorAll(`.${this._fieldSelector}`))
-    fieldsetList.forEach((fieldset) => {
-      this._fieldset = fieldset;
       this._setEventListeners();
-    });
   }
 }
 
