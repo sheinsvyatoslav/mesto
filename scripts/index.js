@@ -47,7 +47,6 @@ function popupPutInfo() {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupKeyboard);
-  formEditValidator.resetValidation();
   formAddValidator.resetValidation();
 }
 
@@ -84,11 +83,13 @@ function formSubmitHandlerAdd(evt) {
 //вызываем функции согласно событиям
 editButton.addEventListener('click', () => {
   popupPutInfo();
+  formEditValidator.resetValidation();
   openPopup(popupEdit);
 });
 formEdit.addEventListener('submit', formSubmitHandlerEdit);
 
 addButton.addEventListener('click', () => {
+  formAddValidator.resetValidation();
   openPopup(popupAdd);
 });
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
