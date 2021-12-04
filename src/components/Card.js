@@ -1,23 +1,15 @@
-export class Card {
-  constructor(name, link, cardSelector, openPopup) {
+export default class Card {
+  constructor({name, link, handleCardClick}, cardSelector) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
-    this._openPopup = openPopup;
+    this._handleCardClick = handleCardClick;
   }
 
   //получение шаблона для карточки
   _getTemplate() {
     const cardElement = document.querySelector(this._cardSelector).content.querySelector('.card').cloneNode(true);
     return cardElement;
-  }
-
-  _openImage() {
-    const popupImage = document.querySelector('.popup_type_image');
-    this._openPopup(popupImage);
-    popupImage.querySelector('.popup__name').textContent = this._name;
-    popupImage.querySelector('.popup__picture').src = this._link;
-    popupImage.querySelector('.popup__picture').alt = this._name;
   }
 
   _setEventListeners() {
@@ -34,7 +26,7 @@ export class Card {
 
     //открытие изображения 
     this._element.querySelector('.card__image').addEventListener('click', () => { 
-      this._openImage();
+      this._handleCardClick();
     });
   }
 
