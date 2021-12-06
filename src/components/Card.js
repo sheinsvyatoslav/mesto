@@ -14,18 +14,18 @@ export default class Card {
 
   _setEventListeners() {
     //лайк карточки
-    this._element.querySelector('.card__like-button').addEventListener('click', (evt) => { 
+    this._likeButton.addEventListener('click', (evt) => { 
       evt.target.classList.toggle('card__like-button_active');
     });
 
     //удаление карточки
-    this._element.querySelector('.card__delete-button').addEventListener('click', (evt) => { 
-      const cardItem = evt.target.closest('.card');
-      cardItem.remove();
+    this._deleteButton.addEventListener('click', (evt) => { 
+      this._element.remove();
+      this._element = null;
     });
 
     //открытие изображения 
-    this._element.querySelector('.card__image').addEventListener('click', () => { 
+    this._cardImage.addEventListener('click', () => { 
       this._handleCardClick();
     });
   }
@@ -33,10 +33,14 @@ export default class Card {
   //создание карточки
   generateCard() {
     this._element = this._getTemplate();
+    this._cardName = this._element.querySelector('.card__name');
+    this._cardImage = this._element.querySelector('.card__image');
+    this._likeButton =  this._element.querySelector('.card__like-button');
+    this._deleteButton = this._element.querySelector('.card__delete-button');
+    this._cardName.textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._setEventListeners();
-    this._element.querySelector('.card__name').textContent = this._name;
-    this._element.querySelector('.card__image').src = this._link;
-    this._element.querySelector('.card__image').alt = this._name;
     return this._element;
   }
 }

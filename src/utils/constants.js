@@ -36,15 +36,7 @@ export const mestoSettings = {
 
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
-export const popupEdit = document.querySelector('.popup_type_edit');
-export const popupAdd = document.querySelector('.popup_type_add');
-export const popupImage = document.querySelector('.popup_type_image');
 export const formEdit = document.querySelector('.form_type_edit');
 export const formAdd = document.querySelector('.form_type_add');
 export const nameInput = document.querySelector('.form__input_type_name');
 export const aboutInput = document.querySelector('.form__input_type_about');
-export const placeInput = document.querySelector('.form__input_type_place');
-export const imageInput = document.querySelector('.form__input_type_image');
-export const profileNameSelector = document.querySelector('.profile__name');
-export const profileAboutSelector = document.querySelector('.profile__about');
-export const cardsContainer = document.querySelector('.cards');

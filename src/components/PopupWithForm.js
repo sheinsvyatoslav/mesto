@@ -13,9 +13,9 @@ export default class PopupWithForm extends Popup {
   
   //создаем объект данных формы
   _getInputValues() {
-    const inputList = this._form.querySelectorAll('.form__input');
+    this._inputList = this._form.querySelectorAll('.form__input');
     const inputData = {};
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputData[inputElement.name] = inputElement.value;
     })
     return inputData;

@@ -9,72 +9,54 @@ import {
   initialCards, 
   mestoSettings, 
   editButton, 
-  addButton,  
-  popupEdit, 
-  popupAdd,
-  popupImage, 
+  addButton,   
   formEdit, 
   formAdd, 
   nameInput,
   aboutInput,
-  placeInput,
-  imageInput,
-  profileNameSelector,
-  profileAboutSelector,
-  cardsContainer,
 } from '../utils/constants.js'
 
-function setImageEvents(data) {
-  const openPopupImage = new PopupWithImage(popupImage);
-  openPopupImage.openPopup(data);
-  openPopupImage.setEventListeners();
-}
+//экземпляр для открытия изображений
+const openPopupImage = new PopupWithImage('.popup_type_image');
 
-//добавляем первоначальные карточки со всеми обработчиками
+//экземпляр для генерации карточек и добавления на страницу
 const putInitialCards = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card({
-      name: item.name, 
-      link: item.link, 
-      handleCardClick: () => {
-        setImageEvents({place: item.name, image: item.link})
-      }
-    }, '#card-template'); 
-    putInitialCards.addItem(card.generateCard());
+    const card = new Card({name: item.name, link: item.link, handleCardClick: () => {
+      openPopupImage.openPopup({place: item.name, image: item.link})
+    }}, '#card-template');
+    return card.generateCard();
   }
-}, cardsContainer
+}, '.cards'
 )
 
+//добавляем первоначальные карточки
 putInitialCards.renderItems();
 
+//экземпляр для формы добавления карточки
 const addCard = new PopupWithForm(
-  popupAdd,
+  '.popup_type_add',
   {submitHandler: (data) => {
-    const card = new Card({
-      name: placeInput.value, 
-      link: imageInput.value,  
-      handleCardClick: () => {
-        setImageEvents(data);
-      }
-    }, '#card-template');
-    putInitialCards.addItem(card.generateCard());
+    console.log(data)
+    putInitialCards.addItem({name: data.place, link: data.image});
   }} 
 )
 
-//изменяем данные пользователя на странице при помощи формы
-const userInfo = new UserInfo({profileNameSelector, profileAboutSelector});
+//экземпляр для изменения данных пользователя на странице при помощи формы
+const userInfo = new UserInfo({profileNameSelector: '.profile__name', profileAboutSelector: '.profile__about'});
 const editInfo = new PopupWithForm(
-  popupEdit,
+  '.popup_type_edit',
   {submitHandler: (data) => {
     userInfo.setUserInfo(data);
   }} 
 );
 
-//вызываем функции согласно событиям
+//навешиваем обработчики
 editButton.addEventListener('click', () => {
-  nameInput.value = userInfo.getUserInfo().name;
-  aboutInput.value = userInfo.getUserInfo().about;
+  const userInfoData = userInfo.getUserInfo();
+  nameInput.value = userInfoData.name;
+  aboutInput.value = userInfoData.about;
   formEditValidator.resetValidation();
   editInfo.openPopup();
 });
@@ -85,6 +67,8 @@ addButton.addEventListener('click', () => {
   addCard.openPopup();
 });
 addCard.setEventListeners();
+
+openPopupImage.setEventListeners();
 
 //валидация форм
 const formAddValidator = new FormValidator(mestoSettings, formAdd);
