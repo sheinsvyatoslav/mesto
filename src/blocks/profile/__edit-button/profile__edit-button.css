@@ -21,5 +21,10 @@
     margin: 10px 0 0 10px;
     height: 18px;
     width: 18px;
+    background-size: 7.5px;
   }
+}
+
+.profile__edit-button:focus {
+  outline: none;
 }

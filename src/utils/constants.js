@@ -36,7 +36,10 @@ export const mestoSettings = {
 
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
+export const avatarButton = document.querySelector('.profile__avatar-button');
 export const formEdit = document.querySelector('.form_type_edit');
 export const formAdd = document.querySelector('.form_type_add');
+export const formAvatar = document.querySelector('.form_type_avatar');
 export const nameInput = document.querySelector('.form__input_type_name');
 export const aboutInput = document.querySelector('.form__input_type_about');
+export const myId = '6179c9e4f8c7d15a18814a78';
