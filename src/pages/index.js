@@ -22,6 +22,7 @@ import {
 //экземпляр API
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-32',
+  token: '46a3dddb-4cdf-4612-a6e0-215cf13e5e22'
 }); 
 
 //экземпляр для открытия изображений
@@ -63,7 +64,7 @@ const cardList = new Section({
 )
 
 Promise.all([
-  // передаем данные о пользователе и отрисовываем карточки
+  // передаем данные о пользователе и отрисовываем карточкиnp
     api.getUserInfo(),
     api.getInitialCards(),
   ])
