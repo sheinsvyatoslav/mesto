@@ -7,8 +7,8 @@ export default class PopupWithForm extends Popup {
     this._submitButton = this._form.querySelector('.form__button')
   }
 
-  closePopup() {
-    super.closePopup();
+  close() {
+    super.close();
     this._form.reset();
   }
 
@@ -47,7 +47,6 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
       this._submitHandler(this._getInputValues());
       this.renderLoading(true);
-      this.closePopup();
     });
   }
 }

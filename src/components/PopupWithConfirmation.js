@@ -6,8 +6,8 @@ export default class PopupWithConfirmation extends Popup {
     this._form = this._popup.querySelector('.form');
   }
 
-  openPopup(card, item) {
-    super.openPopup();
+  open(card, item) {
+    super.open();
     this._element = card;
     this._item = item;
   }
@@ -23,7 +23,6 @@ export default class PopupWithConfirmation extends Popup {
       evt.preventDefault();
       this._submitHandler(this._item);
       this.deleteItem();
-      this.closePopup();
     });
   }
 }
