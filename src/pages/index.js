@@ -64,24 +64,21 @@ const cardList = new Section({
 )
 
 Promise.all([
-  // передаем данные о пользователе и отрисовываем карточкиnp
-    api.getUserInfo(),
+  // передаем данные о пользователе и отрисовываем карточки
+    api.getUserInfo()
+    .then(userData => {
+      userInfo.setUserInfo(userData);
+      userInfo.setAvatar(userData);
+  })
+    .catch((err) => {
+      console.log(err);
+  }),
     api.getInitialCards(),
   ])
   .then(([user, cards])=>{
     console.log([user, cards])
     cardList.renderItems(cards);
  })
-
-//подгружаем первоначальную информацию о пользователе
-api.getUserInfo()
-  .then(userData => {
-    userInfo.setUserInfo(userData);
-    userInfo.setAvatar(userData);
-})
-  .catch((err) => {
-    console.log(err);
-})
 
 //экземпляр подтверждение удлаения карточки
 const popupConfirmDeleteCard = new PopupWithConfirmation(
